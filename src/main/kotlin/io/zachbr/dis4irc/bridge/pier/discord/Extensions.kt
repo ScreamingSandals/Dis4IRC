@@ -43,6 +43,10 @@ fun Message.toBridgeMsg(logger: Logger, receiveTimestamp: Long = System.nanoTime
 
     // handle custom emotes
     var messageText = this.contentDisplay
+    val mentionedChannelsMap = mutableMapOf<String, String>()
+    this.mentionedChannels.forEach {
+        mentionedChannelsMap[it.name] = it.id
+    }
     for (emote in this.emotes) {
         attachmentUrls.add(emote.imageUrl)
     }
@@ -86,7 +90,8 @@ fun Message.toBridgeMsg(logger: Logger, receiveTimestamp: Long = System.nanoTime
         this.channel.asBridgeSource(),
         receiveTimestamp,
         attachmentUrls,
-        bridgeMsgRef
+        bridgeMsgRef,
+        mentionedChannels = mentionedChannelsMap
     )
 }
 

@@ -11,10 +11,7 @@ package io.zachbr.dis4irc.bridge.mutator
 import io.zachbr.dis4irc.bridge.Bridge
 import io.zachbr.dis4irc.bridge.message.Message
 import io.zachbr.dis4irc.bridge.mutator.api.Mutator
-import io.zachbr.dis4irc.bridge.mutator.mutators.BlockHereEveryone
-import io.zachbr.dis4irc.bridge.mutator.mutators.PasteLongMessages
-import io.zachbr.dis4irc.bridge.mutator.mutators.StripAntiPingCharacters
-import io.zachbr.dis4irc.bridge.mutator.mutators.TranslateFormatting
+import io.zachbr.dis4irc.bridge.mutator.mutators.*
 import org.spongepowered.configurate.CommentedConfigurationNode
 
 class MutatorManager(bridge: Bridge, config: CommentedConfigurationNode) {
@@ -25,6 +22,7 @@ class MutatorManager(bridge: Bridge, config: CommentedConfigurationNode) {
         registerMutator(BlockHereEveryone())
         registerMutator(PasteLongMessages(bridge, config.node("paste-service")))
         registerMutator(TranslateFormatting())
+        registerMutator(ChannelMention(bridge.config))
     }
 
     private fun registerMutator(mutator: Mutator) {

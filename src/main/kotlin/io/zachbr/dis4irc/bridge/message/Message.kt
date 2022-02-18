@@ -41,6 +41,10 @@ data class Message(
      */
     var destination: Destination = Destination.OPPOSITE,
     /**
+     * All mentioned channels. Mapped in format Display name -> Channel id. Exists only for Discord messages.
+     */
+    var mentionedChannels: Map<String, String>? = null,
+    /**
      * A list of mutators that have been applied to this message
      * stored as class hashcodes because... reasons?
      */
