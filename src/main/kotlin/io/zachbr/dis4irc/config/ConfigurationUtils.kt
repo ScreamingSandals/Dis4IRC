@@ -90,6 +90,9 @@ fun CommentedConfigurationNode.makeDefaultNode() {
     val announceExtras = this.node("announce-extras")
     announceExtras.set(false)
 
+    val forwardEdits = this.node("forward-edits")
+    forwardEdits.set(true)
+
     val mappingsNode = this.node("channel-mappings")
     mappingsNode.comment("Mappings are the channel <-> channel bridging configurations")
 
@@ -130,6 +133,7 @@ fun CommentedConfigurationNode.toBridgeConfiguration(): BridgeConfiguration {
     val discordApiKey = getStringNonNull("Discord API key cannot be null in $bridgeName!", "discord-api-key")
     val announceJoinsQuits = this.node("announce-joins-and-quits").boolean
     val announceExtras = this.node("announce-extras").boolean
+    val forwardEdits = this.node("forward-edits").boolean
 
     val webhookMappings = ArrayList<WebhookMapping>()
     for (webhookNode in this.node("discord-webhooks").childrenMap().values) {
@@ -199,7 +203,8 @@ fun CommentedConfigurationNode.toBridgeConfiguration(): BridgeConfiguration {
         channelMappings,
         ircConfig,
         discordConfig,
-        this
+        this,
+        forwardEdits
     )
 }
 

@@ -44,6 +44,8 @@ data class Message(
      * All mentioned channels. Mapped in format Display name -> Channel id. Exists only for Discord messages.
      */
     var mentionedChannels: Map<String, String>? = null,
+    val editedMessage: Boolean = false,
+    val originalMessageTimestamp: Long = 0,
     /**
      * A list of mutators that have been applied to this message
      * stored as class hashcodes because... reasons?

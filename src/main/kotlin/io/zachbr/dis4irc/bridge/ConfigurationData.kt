@@ -22,7 +22,8 @@ data class BridgeConfiguration(
     val channelMappings: List<ChannelMapping>,
     val irc: IrcConfiguration,
     val discord: DiscordConfiguration,
-    val rawNode: CommentedConfigurationNode
+    val rawNode: CommentedConfigurationNode,
+    val forwardEdits: Boolean
 ) {
     /** toString with no sensitive info */
     fun toLoggable(): String {

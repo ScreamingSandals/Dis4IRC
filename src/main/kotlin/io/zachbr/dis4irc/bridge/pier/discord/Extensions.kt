@@ -91,7 +91,9 @@ fun Message.toBridgeMsg(logger: Logger, receiveTimestamp: Long = System.nanoTime
         receiveTimestamp,
         attachmentUrls,
         bridgeMsgRef,
-        mentionedChannels = mentionedChannelsMap
+        mentionedChannels = mentionedChannelsMap,
+        editedMessage = this.isEdited,
+        originalMessageTimestamp = this.timeCreated.toEpochSecond()
     )
 }
 

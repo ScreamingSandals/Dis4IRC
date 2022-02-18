@@ -19,6 +19,7 @@ import org.kitteh.irc.client.library.util.Format
 import org.slf4j.Logger
 import java.util.regex.Pattern
 import kotlin.math.abs
+import kotlin.math.min
 
 const val ANTI_PING_CHAR = 0x200B.toChar() // zero width space
 private val NICK_COLORS = arrayOf("10", "06", "03", "07", "12", "11", "13", "09", "02")
@@ -147,7 +148,9 @@ class IrcPier(private val bridge: Bridge) : Pier {
         }
 
         val nameDisplay = generateColoredName(msg.sender.displayName)
-        return "<$nameDisplay>"
+        val seconds = (System.currentTimeMillis() - msg.originalMessageTimestamp * 1000) / 1000
+        val minutes = seconds / 60
+        return "${if (msg.editedMessage) "EDIT (${(if (minutes < 2) "${seconds} secs" else "${minutes} mins")} ago): " else ""}<$nameDisplay>"
     }
 
     // https://github.com/korobi/Web/blob/master/src/Korobi/WebBundle/IRC/Parser/NickColours.php

@@ -30,7 +30,7 @@ import org.slf4j.Logger
 
 private const val ZERO_WIDTH_SPACE = 0x200B.toChar()
 
-class DiscordPier(private val bridge: Bridge) : Pier {
+class DiscordPier(internal val bridge: Bridge) : Pier {
     internal val logger: Logger = bridge.logger
     private val webhookMap = HashMap<String, WebhookClient>()
     private var botAvatarUrl: String? = null
