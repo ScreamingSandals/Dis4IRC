@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit
 private const val EXEC_DELAY_MILLIS = 60_000
 
 class StatsCommand(private val bridge: Bridge) : Executor {
+    override val helpMessage: String = "Shows stats"
+
     private val percentageContext = MathContext(4, RoundingMode.HALF_UP)
     private var lastExecution = 0L
 

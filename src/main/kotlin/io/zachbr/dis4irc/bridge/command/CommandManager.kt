@@ -10,6 +10,8 @@ package io.zachbr.dis4irc.bridge.command
 
 import io.zachbr.dis4irc.bridge.Bridge
 import io.zachbr.dis4irc.bridge.command.api.Executor
+import io.zachbr.dis4irc.bridge.command.executors.ChannelsCommand
+import io.zachbr.dis4irc.bridge.command.executors.HelpCommand
 import io.zachbr.dis4irc.bridge.command.executors.PinnedMessagesCommand
 import io.zachbr.dis4irc.bridge.command.executors.StatsCommand
 import io.zachbr.dis4irc.bridge.message.BOT_SENDER
@@ -27,6 +29,22 @@ class CommandManager(private val bridge: Bridge, config: CommentedConfigurationN
     private val logger = bridge.logger
 
     init {
+        val helpNode = config.node("help", "enabled")
+        if (helpNode.virtual()) {
+            helpNode.set("true")
+        }
+        if (helpNode.boolean) {
+            registerExecutor("help", HelpCommand(bridge, this))
+        }
+
+        val channelsNode = config.node("channels", "enabled")
+        if (channelsNode.virtual()) {
+            channelsNode.set("true")
+        }
+        if (channelsNode.boolean) {
+            registerExecutor("channels", ChannelsCommand(bridge))
+        }
+
         val statsNode = config.node("stats", "enabled")
         if (statsNode.virtual()) {
             statsNode.set("true")
@@ -56,6 +74,10 @@ class CommandManager(private val bridge: Bridge, config: CommentedConfigurationN
      */
     private fun getExecutorFor(name: String): Executor? {
         return executorsByCommand[name]
+    }
+
+    fun getCommands(): Map<String, Executor> {
+        return HashMap(executorsByCommand)
     }
 
     /**

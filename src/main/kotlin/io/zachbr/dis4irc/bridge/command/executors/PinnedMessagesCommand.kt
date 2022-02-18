@@ -15,6 +15,8 @@ import io.zachbr.dis4irc.bridge.message.PlatformType
 import io.zachbr.dis4irc.bridge.mutator.mutators.TranslateFormatting
 
 class PinnedMessagesCommand(private val bridge: Bridge) : Executor {
+    override val helpMessage: String = "Shows all pinned messages of this channel"
+
     override fun onCommand(command: Message): String? {
         if (command.source.type != PlatformType.IRC) {
             bridge.logger.debug("Ignoring request for pinned messages because it originates from Discord")

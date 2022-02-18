@@ -11,6 +11,8 @@ package io.zachbr.dis4irc.bridge.command.api
 import io.zachbr.dis4irc.bridge.message.Message
 
 interface Executor {
+    val helpMessage: String?
+
     /**
      * Perform some action when a command is executed
      *
