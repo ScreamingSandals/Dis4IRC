@@ -23,6 +23,9 @@ class MutatorManager(bridge: Bridge, config: CommentedConfigurationNode) {
         registerMutator(PasteLongMessages(bridge, config.node("paste-service")))
         registerMutator(TranslateFormatting())
         registerMutator(ChannelMention(bridge.config))
+        if (bridge.config.translateIrcEmoticonsToDiscordEmojis) {
+            registerMutator(IrcEmoticons())
+        }
     }
 
     private fun registerMutator(mutator: Mutator) {

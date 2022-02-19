@@ -93,6 +93,9 @@ fun CommentedConfigurationNode.makeDefaultNode() {
     val forwardEdits = this.node("forward-edits")
     forwardEdits.set(true)
 
+    val translateIrcEmoticonsToDiscordEmojis = this.node("translate-irc-emoticons-to-discord-emojis")
+    translateIrcEmoticonsToDiscordEmojis.set(true)
+
     val mappingsNode = this.node("channel-mappings")
     mappingsNode.comment("Mappings are the channel <-> channel bridging configurations")
 
@@ -134,6 +137,7 @@ fun CommentedConfigurationNode.toBridgeConfiguration(): BridgeConfiguration {
     val announceJoinsQuits = this.node("announce-joins-and-quits").boolean
     val announceExtras = this.node("announce-extras").boolean
     val forwardEdits = this.node("forward-edits").boolean
+    val translateIrcEmoticonsToDiscordEmojis = this.node("translate-irc-emoticons-to-discord-emojis").boolean
 
     val webhookMappings = ArrayList<WebhookMapping>()
     for (webhookNode in this.node("discord-webhooks").childrenMap().values) {
@@ -204,7 +208,8 @@ fun CommentedConfigurationNode.toBridgeConfiguration(): BridgeConfiguration {
         ircConfig,
         discordConfig,
         this,
-        forwardEdits
+        forwardEdits,
+        translateIrcEmoticonsToDiscordEmojis
     )
 }
 

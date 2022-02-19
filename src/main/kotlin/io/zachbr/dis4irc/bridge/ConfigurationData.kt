@@ -23,7 +23,8 @@ data class BridgeConfiguration(
     val irc: IrcConfiguration,
     val discord: DiscordConfiguration,
     val rawNode: CommentedConfigurationNode,
-    val forwardEdits: Boolean
+    val forwardEdits: Boolean,
+    val translateIrcEmoticonsToDiscordEmojis: Boolean
 ) {
     /** toString with no sensitive info */
     fun toLoggable(): String {
